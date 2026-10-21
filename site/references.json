@@ -1,1 +1,429 @@
-[]
+[
+  {
+    "id": "2026-09-20-social-value",
+    "date": "2026-09-20",
+    "photoDates": [
+      "2026-09-20",
+      "2026-09-21",
+      "2026-09-22"
+    ],
+    "dateLabel": "2026.09.20 · 2026.09.21 · 2026.09.22",
+    "title": "대한민국 사회적가치 페스타",
+    "type": "전시·박람회",
+    "location": "코엑스",
+    "summary": "전시장 안 발표 무대와 토크 공간, 행사 전경을 모았습니다. 9월 20일부터 22일까지 촬영한 준비와 진행 장면을 함께 살펴볼 수 있습니다.",
+    "photos": [
+      "assets/events/2026-09-20-social-value-01.jpg",
+      "assets/events/2026-09-20-social-value-02.jpg",
+      "assets/events/2026-09-20-social-value-03.jpg",
+      "assets/events/2026-09-20-social-value-04.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/Devlz2VE4SP/"
+  },
+  {
+    "id": "2026-09-17-gaepo",
+    "date": "2026-09-17",
+    "photoDates": [
+      "2026-09-17"
+    ],
+    "dateLabel": "2026.09.17",
+    "title": "개포근린공원 야외 행사",
+    "type": "공연·버스킹",
+    "location": "개포근린공원",
+    "summary": "나무가 둘러싼 공원 안에 마련된 야외 무대입니다. 공연 공간과 객석, 자연광 아래 현장의 모습을 담았습니다.",
+    "photos": [
+      "assets/events/2026-09-17-gaepo-01.jpg",
+      "assets/events/2026-09-17-gaepo-02.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevlvLsE9GI/"
+  },
+  {
+    "id": "2026-09-14-volunteer",
+    "date": "2026-09-14",
+    "photoDates": [
+      "2026-09-14"
+    ],
+    "dateLabel": "2026.09.14",
+    "title": "자원봉사대회",
+    "type": "시상식·기념식",
+    "location": "",
+    "summary": "연회장에 마련된 자원봉사대회 무대와 객석입니다. 행사 화면과 무대 전경을 여러 위치에서 기록했습니다.",
+    "photos": [
+      "assets/events/2026-09-14-volunteer-01.jpg",
+      "assets/events/2026-09-14-volunteer-02.jpg",
+      "assets/events/2026-09-14-volunteer-03.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevlpiNE66i/"
+  },
+  {
+    "id": "2026-08-30-golf-awards",
+    "date": "2026-08-30",
+    "photoDates": [
+      "2026-08-30"
+    ],
+    "dateLabel": "2026.08.30",
+    "title": "이데일리 골프대회 시상식",
+    "type": "시상식·기념식",
+    "location": "써닝포인트",
+    "summary": "골프대회 시상식의 야외 무대와 음향 운영 공간입니다. 연단과 마이크, 콘솔을 통해 시상식 현장의 구성을 담았습니다.",
+    "photos": [
+      "assets/events/2026-08-30-golf-awards-01.jpg",
+      "assets/events/2026-08-30-golf-awards-02.jpg",
+      "assets/events/2026-08-30-golf-awards-03.jpg",
+      "assets/events/2026-08-30-golf-awards-04.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevllthE-zW/"
+  },
+  {
+    "id": "2026-08-25-cj-institute",
+    "date": "2026-08-25",
+    "photoDates": [
+      "2026-08-25"
+    ],
+    "dateLabel": "2026.08.25",
+    "title": "CJ인재원 기업행사",
+    "type": "기업행사",
+    "location": "CJ인재원",
+    "summary": "발표 화면과 무선 마이크가 준비된 기업행사 공간입니다. 연단과 객석, 발표를 위한 준비 장면을 사진으로 기록했습니다.",
+    "photos": [
+      "assets/events/2026-08-25-cj-institute-01.jpg",
+      "assets/events/2026-08-25-cj-institute-02.jpg",
+      "assets/events/2026-08-25-cj-institute-03.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevlhIkkxvo/"
+  },
+  {
+    "id": "2026-08-23-times-square",
+    "date": "2026-08-23",
+    "photoDates": [
+      "2026-08-23"
+    ],
+    "dateLabel": "2026.08.23",
+    "title": "타임스퀘어 버스킹",
+    "type": "공연·버스킹",
+    "location": "타임스퀘어",
+    "summary": "실내 아트리움 무대에서 열린 버스킹 현장입니다. 무대 준비와 공연, 관객이 모인 공간의 모습을 함께 담았습니다.",
+    "photos": [
+      "assets/events/2026-08-23-times-square-01.jpg",
+      "assets/events/2026-08-23-times-square-02.jpg",
+      "assets/events/2026-08-23-times-square-03.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/Devlb9ek2QN/"
+  },
+  {
+    "id": "2026-08-12-outdoor-busking",
+    "date": "2026-08-12",
+    "photoDates": [
+      "2026-08-12"
+    ],
+    "dateLabel": "2026.08.12",
+    "title": "야외 버스킹 무대",
+    "type": "공연·버스킹",
+    "location": "",
+    "summary": "건물 사이 열린 공간에 마련된 버스킹 무대입니다. 마이크 스탠드와 무대 모니터, 관객 공간을 중심으로 현장을 기록했습니다.",
+    "photos": [
+      "assets/events/2026-08-12-outdoor-busking-01.jpg",
+      "assets/events/2026-08-12-outdoor-busking-02.jpg",
+      "assets/events/2026-08-12-outdoor-busking-03.jpg",
+      "assets/events/2026-08-12-outdoor-busking-04.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevlYZ1EyqD/"
+  },
+  {
+    "id": "2026-08-10-haesley",
+    "date": "2026-08-10",
+    "photoDates": [
+      "2026-08-10"
+    ],
+    "dateLabel": "2026.08.10",
+    "title": "여주 헤슬리 골프장 기업행사",
+    "type": "기업행사",
+    "location": "여주 헤슬리 골프장",
+    "summary": "계단형 좌석과 발표 화면이 마련된 실내 행사 공간입니다. 객석과 화면, 음향 콘솔의 배치가 드러나는 장면을 담았습니다.",
+    "photos": [
+      "assets/events/2026-08-10-haesley-01.jpg",
+      "assets/events/2026-08-10-haesley-02.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevlTpbEyFe/"
+  },
+  {
+    "id": "2026-08-07-ferragamo",
+    "date": "2026-08-07",
+    "photoDates": [
+      "2026-08-07"
+    ],
+    "dateLabel": "2026.08.07",
+    "title": "페라가모 매장 라이브 행사",
+    "type": "브랜드 이벤트",
+    "location": "",
+    "summary": "매장 안 피아노와 현악 연주가 어우러진 라이브 행사입니다. 연주 공간과 관람 장면, 음향 콘솔을 함께 기록했습니다.",
+    "photos": [
+      "assets/events/2026-08-07-ferragamo-01.jpg",
+      "assets/events/2026-08-07-ferragamo-02.jpg",
+      "assets/events/2026-08-07-ferragamo-03.jpg",
+      "assets/events/2026-08-07-ferragamo-04.jpg",
+      "assets/events/2026-08-07-ferragamo-05.jpg",
+      "assets/events/2026-08-07-ferragamo-06.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevlOq3EwGS/"
+  },
+  {
+    "id": "2026-07-22-woori",
+    "date": "2026-07-22",
+    "photoDates": [
+      "2026-07-22",
+      "2026-07-24"
+    ],
+    "dateLabel": "2026.07.22 · 2026.07.24",
+    "title": "우리은행 본사 행사",
+    "type": "기업행사",
+    "location": "우리은행 본사",
+    "summary": "본사 강당의 무대, 객석과 행사장 주변을 담았습니다. 7월 22일과 24일에 촬영한 같은 현장의 기록을 함께 모았습니다.",
+    "photos": [
+      "assets/events/2026-07-22-woori-01.jpg",
+      "assets/events/2026-07-22-woori-02.jpg",
+      "assets/events/2026-07-22-woori-03.jpg",
+      "assets/events/2026-07-22-woori-04.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevlKoFkwXw/"
+  },
+  {
+    "id": "2026-07-06-showcase",
+    "date": "2026-07-06",
+    "photoDates": [
+      "2026-07-06"
+    ],
+    "dateLabel": "2026.07.06",
+    "title": "신한 스퀘어 쇼케이스",
+    "type": "공연·버스킹",
+    "location": "",
+    "summary": "쇼케이스 무대와 객석 뒤 음향 운영 공간의 기록입니다. 무대 전경과 콘솔을 통해 공연 현장의 구성을 살펴볼 수 있습니다.",
+    "photos": [
+      "assets/stage.jpg",
+      "assets/field-11.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevlGc4E48s/"
+  },
+  {
+    "id": "2026-06-08-dior",
+    "date": "2026-06-08",
+    "photoDates": [
+      "2026-06-08"
+    ],
+    "dateLabel": "2026.06.08",
+    "title": "Dior Convention 2026",
+    "type": "기업행사",
+    "location": "",
+    "summary": "컨벤션 무대와 객석, 공연 장면을 함께 모은 현장 기록입니다. 준비 과정부터 조명이 켜진 무대까지 서로 다른 순간을 담았습니다.",
+    "photos": [
+      "assets/events/2026-06-08-dior-01.jpg",
+      "assets/events/2026-06-08-dior-02.jpg",
+      "assets/field-12.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevlCaIk24X/"
+  },
+  {
+    "id": "2026-06-05-lg",
+    "date": "2026-06-05",
+    "photoDates": [
+      "2026-06-05"
+    ],
+    "dateLabel": "2026.06.05",
+    "title": "LG전자 브랜드 행사",
+    "type": "브랜드 이벤트",
+    "location": "",
+    "summary": "브랜드 행사 공간에 설치된 음향 콘솔과 주변 현장입니다. 제품 전시와 행사 진행이 함께 이루어지는 공간의 구성을 담았습니다.",
+    "photos": [
+      "assets/events/2026-06-05-lg-01.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/Devk90sE5SO/"
+  },
+  {
+    "id": "2026-05-27-kodit",
+    "date": "2026-05-27",
+    "photoDates": [
+      "2026-05-27"
+    ],
+    "dateLabel": "2026.05.27",
+    "title": "신용보증기금 기업동행 50주년 기념식",
+    "type": "시상식·기념식",
+    "location": "",
+    "summary": "기념식 무대와 객석이 구성된 대형 행사장의 모습입니다. 무대 화면과 행사장 전체 전경을 중심으로 기록했습니다.",
+    "photos": [
+      "assets/events/2026-05-27-kodit-01.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/Devk5iWE0QQ/"
+  },
+  {
+    "id": "2026-05-23-taean",
+    "date": "2026-05-23",
+    "photoDates": [
+      "2026-05-23"
+    ],
+    "dateLabel": "2026.05.23",
+    "title": "태안 체육행사 개막식",
+    "type": "시상식·기념식",
+    "location": "태안종합실내체육관",
+    "summary": "실내체육관에 무대와 관람 공간이 마련된 개막식 현장입니다. 체육관 특유의 넓은 공간과 행사 무대 배치를 담았습니다.",
+    "photos": [
+      "assets/events/2026-05-23-taean-01.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/Devk1DJE-fe/"
+  },
+  {
+    "id": "2026-05-19-andong",
+    "date": "2026-05-19",
+    "photoDates": [
+      "2026-05-19"
+    ],
+    "dateLabel": "2026.05.19",
+    "title": "안동 연회 행사",
+    "type": "기업행사",
+    "location": "안동",
+    "summary": "한옥 공간에 길게 구성된 연회 테이블과 행사장 전경입니다. 공간의 형태와 좌석 배치가 드러나는 현장 사진을 남겼습니다.",
+    "photos": [
+      "assets/events/2026-05-19-andong-01.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevkxowE2N7/"
+  },
+  {
+    "id": "2026-05-14-cj-townhall",
+    "date": "2026-05-14",
+    "photoDates": [
+      "2026-05-14"
+    ],
+    "dateLabel": "2026.05.14",
+    "title": "대한통운 타운홀 행사",
+    "type": "기업행사",
+    "location": "",
+    "summary": "기업 타운홀 행사의 발표 공간과 음향 콘솔입니다. 발표 화면과 객석의 관계, 현장 운영 위치를 사진으로 확인할 수 있습니다.",
+    "photos": [
+      "assets/events/2026-05-14-cj-townhall-01.jpg",
+      "assets/events/2026-05-14-cj-townhall-02.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/Devkugxk3qH/"
+  },
+  {
+    "id": "2026-04-28-recruitment",
+    "date": "2026-04-28",
+    "photoDates": [
+      "2026-04-28"
+    ],
+    "dateLabel": "2026.04.28",
+    "title": "대한민국 상생 채용박람회",
+    "type": "전시·박람회",
+    "location": "aT센터",
+    "summary": "채용박람회 안에 구성된 발표 무대와 운영 공간입니다. 대형 화면, 연단과 객석을 중심으로 박람회 현장의 장면을 모았습니다.",
+    "photos": [
+      "assets/field-6.jpg",
+      "assets/field-2.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevkrJ0E9Ff/"
+  },
+  {
+    "id": "2026-04-21-dangjin",
+    "date": "2026-04-21",
+    "photoDates": [
+      "2026-04-21"
+    ],
+    "dateLabel": "2026.04.21",
+    "title": "당진 준공식",
+    "type": "시상식·기념식",
+    "location": "당진",
+    "summary": "야외 준공식의 연단과 객석 전경입니다. 넓게 열린 공간에서 축사와 공식 순서가 진행되는 현장을 기록했습니다.",
+    "photos": [
+      "assets/events/2026-04-21-dangjin-01.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevkmO_E_a-/"
+  },
+  {
+    "id": "2026-04-14-nh-life",
+    "date": "2026-04-14",
+    "photoDates": [
+      "2026-04-14"
+    ],
+    "dateLabel": "2026.04.14",
+    "title": "NH농협생명 연도대상 시상식",
+    "type": "시상식·기념식",
+    "location": "",
+    "summary": "대형 화면과 객석이 구성된 시상식, 그리고 무대 공연 장면입니다. 발표와 공연이 한 공간에서 이어지는 현장의 모습을 담았습니다.",
+    "photos": [
+      "assets/events/2026-04-14-nh-life-01.jpg",
+      "assets/events/2026-04-14-nh-life-02.jpg",
+      "assets/events/2026-04-14-nh-life-03.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/Devkhcpkww0/"
+  },
+  {
+    "id": "2026-04-08-donghaeng",
+    "date": "2026-04-08",
+    "photoDates": [
+      "2026-04-08"
+    ],
+    "dateLabel": "2026.04.08",
+    "title": "광화문광장 동행축제 버스킹",
+    "type": "공연·버스킹",
+    "location": "광화문광장",
+    "summary": "도심 광장에 마련된 버스킹 무대의 현장 기록입니다. 공연 무대, 관객 공간과 음향 장비 배치를 여러 각도에서 살펴볼 수 있습니다.",
+    "photos": [
+      "assets/events/2026-04-08-donghaeng-01.jpg",
+      "assets/events/2026-04-08-donghaeng-02.jpg",
+      "assets/events/2026-04-08-donghaeng-03.jpg",
+      "assets/events/2026-04-08-donghaeng-04.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/Devkd6CE_7G/"
+  },
+  {
+    "id": "2026-04-07-peoplelife",
+    "date": "2026-04-07",
+    "photoDates": [
+      "2026-04-07"
+    ],
+    "dateLabel": "2026.04.07",
+    "title": "피플라이프 연도대상 시상식",
+    "type": "시상식·기념식",
+    "location": "",
+    "summary": "객석 사이 레드카펫과 대형 화면이 마련된 시상식 현장입니다. 무대를 바라보는 음향 콘솔 위치와 행사장 전체 구성을 함께 담았습니다.",
+    "photos": [
+      "assets/events/2026-04-07-peoplelife-01.jpg",
+      "assets/events/2026-04-07-peoplelife-02.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevkaTOE4Tr/"
+  },
+  {
+    "id": "2026-03-19-valentino",
+    "date": "2026-03-19",
+    "photoDates": [
+      "2026-03-19"
+    ],
+    "dateLabel": "2026.03.19",
+    "title": "발렌티노 브랜드 행사",
+    "type": "브랜드 이벤트",
+    "location": "",
+    "summary": "브랜드 공간과 긴 테이블을 중심으로 구성된 행사 현장입니다. 전시와 연회가 이어지는 공간의 분위기를 사진으로 기록했습니다.",
+    "photos": [
+      "assets/events/2026-03-19-valentino-01.jpg",
+      "assets/events/2026-03-19-valentino-02.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevkT0Ok4_a/"
+  },
+  {
+    "id": "2026-03-17-kumho",
+    "date": "2026-03-17",
+    "photoDates": [
+      "2026-03-17"
+    ],
+    "dateLabel": "2026.03.17",
+    "title": "금호타이어 기업행사",
+    "type": "기업행사",
+    "location": "",
+    "summary": "발표 공간과 연회장 무대가 함께 구성된 기업행사 현장입니다. 객석 뒤 음향 콘솔부터 무대 전경까지, 서로 다른 공간의 준비 장면을 담았습니다.",
+    "photos": [
+      "assets/events/2026-03-17-kumho-01.jpg",
+      "assets/events/2026-03-17-kumho-02.jpg",
+      "assets/events/2026-03-17-kumho-03.jpg",
+      "assets/events/2026-03-17-kumho-04.jpg"
+    ],
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevkOvZk4Ws/"
+  }
+]

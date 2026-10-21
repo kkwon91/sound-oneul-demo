@@ -16,7 +16,15 @@
  grid.addEventListener('click',e=>{
   const card=e.target.closest('a[data-photo]');
   if(!card || e.button!==0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
-  e.preventDefault();opener=card;current=visible.indexOf(card);updateViewer();dialog.showModal();
+  e.preventDefault();visible=cards.filter(item=>!item.hidden);opener=card;current=visible.indexOf(card);updateViewer();dialog.showModal();
+ });
+ document.querySelector('#records')?.addEventListener('click',e=>{
+  const target=e.target.closest('a[data-record-open],a[data-record-photo]');
+  if(!target || e.button!==0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey)return;
+  e.preventDefault();opener=target;
+  visible=[...target.closest('article').querySelectorAll('a[data-record-photo]')];
+  current=target.hasAttribute('data-record-open')?0:visible.indexOf(target);
+  updateViewer();dialog.showModal();
  });
  filters.hidden=false;
  filters.addEventListener('click',e=>{
