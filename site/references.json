@@ -62,7 +62,7 @@
       "2026-08-30"
     ],
     "dateLabel": "2026.08.30",
-    "title": "이데일리 골프대회 시상식",
+    "title": "KG 레이디스 오픈 시상식",
     "type": "시상식·기념식",
     "location": "써닝포인트",
     "summary": "골프대회 시상식의 야외 무대와 음향 운영 공간입니다. 연단과 마이크, 콘솔을 통해 시상식 현장의 구성을 담았습니다.",
@@ -72,7 +72,7 @@
       "assets/events/2026-08-30-golf-awards-03.jpg",
       "assets/events/2026-08-30-golf-awards-04.jpg"
     ],
-    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevpbCFExpF/"
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevzIUOkzpF/"
   },
   {
     "id": "2026-08-25-cj-institute",
@@ -168,24 +168,24 @@
     "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevpLJ_k_fp/"
   },
   {
-    "id": "2026-07-22-woori",
+    "id": "2026-07-22-company-hq",
     "date": "2026-07-22",
     "photoDates": [
       "2026-07-22",
       "2026-07-24"
     ],
     "dateLabel": "2026.07.22 · 2026.07.24",
-    "title": "우리은행 본사 행사",
+    "title": "기업 본사 행사",
     "type": "기업행사",
-    "location": "우리은행 본사",
+    "location": "기업 본사",
     "summary": "본사 강당의 무대, 객석과 행사장 주변을 담았습니다. 7월 22일과 24일에 촬영한 같은 현장의 기록을 함께 모았습니다.",
     "photos": [
-      "assets/events/2026-07-22-woori-01.jpg",
-      "assets/events/2026-07-22-woori-02.jpg",
-      "assets/events/2026-07-22-woori-03.jpg",
-      "assets/events/2026-07-22-woori-04.jpg"
+      "assets/events/2026-07-22-company-hq-01.jpg",
+      "assets/events/2026-07-22-company-hq-02.jpg",
+      "assets/events/2026-07-22-company-hq-03.jpg",
+      "assets/events/2026-07-22-company-hq-04.jpg"
     ],
-    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevpH9AExt2/"
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevzCMck_46/"
   },
   {
     "id": "2026-07-06-showcase",
@@ -287,21 +287,21 @@
     "instagramUrl": "https://www.instagram.com/sound_oneul/p/Devo0AJk64-/"
   },
   {
-    "id": "2026-05-14-cj-townhall",
+    "id": "2026-05-14-company-townhall",
     "date": "2026-05-14",
     "photoDates": [
       "2026-05-14"
     ],
     "dateLabel": "2026.05.14",
-    "title": "대한통운 타운홀 행사",
+    "title": "기업 타운홀 행사",
     "type": "기업행사",
     "location": "",
     "summary": "기업 타운홀 행사의 발표 공간과 음향 콘솔입니다. 발표 화면과 객석의 관계, 현장 운영 위치를 사진으로 확인할 수 있습니다.",
     "photos": [
-      "assets/events/2026-05-14-cj-townhall-01.jpg",
-      "assets/events/2026-05-14-cj-townhall-02.jpg"
+      "assets/events/2026-05-14-company-townhall-01.jpg",
+      "assets/events/2026-05-14-company-townhall-02.jpg"
     ],
-    "instagramUrl": "https://www.instagram.com/sound_oneul/p/DevowWfE8om/"
+    "instagramUrl": "https://www.instagram.com/sound_oneul/p/Devy9PYE_1I/"
   },
   {
     "id": "2026-04-28-recruitment",

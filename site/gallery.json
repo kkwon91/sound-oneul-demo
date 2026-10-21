@@ -92,8 +92,8 @@
   {
     "src": "assets/events/2026-08-30-golf-awards-01.jpg",
     "category": "시상식·기념식",
-    "title": "이데일리 골프대회 시상식 · 01",
-    "alt": "이데일리 골프대회 시상식 현장 사진 1 — 2026-08-30 촬영",
+    "title": "KG 레이디스 오픈 시상식 · 01",
+    "alt": "KG 레이디스 오픈 시상식 현장 사진 1 — 2026-08-30 촬영",
     "date": "2026-08-30",
     "recordId": "2026-08-30-golf-awards",
     "width": 2200,
@@ -102,8 +102,8 @@
   {
     "src": "assets/events/2026-08-30-golf-awards-02.jpg",
     "category": "시상식·기념식",
-    "title": "이데일리 골프대회 시상식 · 02",
-    "alt": "이데일리 골프대회 시상식 현장 사진 2 — 2026-08-30 촬영",
+    "title": "KG 레이디스 오픈 시상식 · 02",
+    "alt": "KG 레이디스 오픈 시상식 현장 사진 2 — 2026-08-30 촬영",
     "date": "2026-08-30",
     "recordId": "2026-08-30-golf-awards",
     "width": 2200,
@@ -112,8 +112,8 @@
   {
     "src": "assets/events/2026-08-30-golf-awards-03.jpg",
     "category": "시상식·기념식",
-    "title": "이데일리 골프대회 시상식 · 03",
-    "alt": "이데일리 골프대회 시상식 현장 사진 3 — 2026-08-30 촬영",
+    "title": "KG 레이디스 오픈 시상식 · 03",
+    "alt": "KG 레이디스 오픈 시상식 현장 사진 3 — 2026-08-30 촬영",
     "date": "2026-08-30",
     "recordId": "2026-08-30-golf-awards",
     "width": 2200,
@@ -122,8 +122,8 @@
   {
     "src": "assets/events/2026-08-30-golf-awards-04.jpg",
     "category": "시상식·기념식",
-    "title": "이데일리 골프대회 시상식 · 04",
-    "alt": "이데일리 골프대회 시상식 현장 사진 4 — 2026-08-30 촬영",
+    "title": "KG 레이디스 오픈 시상식 · 04",
+    "alt": "KG 레이디스 오픈 시상식 현장 사진 4 — 2026-08-30 촬영",
     "date": "2026-08-30",
     "recordId": "2026-08-30-golf-awards",
     "width": 2200,
@@ -310,44 +310,44 @@
     "height": 1650
   },
   {
-    "src": "assets/events/2026-07-22-woori-02.jpg",
+    "src": "assets/events/2026-07-22-company-hq-02.jpg",
     "category": "기업행사",
-    "title": "우리은행 본사 행사 · 02",
-    "alt": "우리은행 본사 행사 현장 사진 2 — 2026-07-24 촬영",
+    "title": "기업 본사 행사 · 02",
+    "alt": "기업 본사 행사 현장 사진 2 — 2026-07-24 촬영 (기업명·로고 비공개 처리)",
     "date": "2026-07-24",
-    "recordId": "2026-07-22-woori",
-    "width": 2200,
-    "height": 1650
+    "recordId": "2026-07-22-company-hq",
+    "width": 1448,
+    "height": 1086
   },
   {
-    "src": "assets/events/2026-07-22-woori-03.jpg",
+    "src": "assets/events/2026-07-22-company-hq-03.jpg",
     "category": "기업행사",
-    "title": "우리은행 본사 행사 · 03",
-    "alt": "우리은행 본사 행사 현장 사진 3 — 2026-07-24 촬영",
+    "title": "기업 본사 행사 · 03",
+    "alt": "기업 본사 행사 현장 사진 3 — 2026-07-24 촬영 (기업명·로고 비공개 처리)",
     "date": "2026-07-24",
-    "recordId": "2026-07-22-woori",
-    "width": 2200,
-    "height": 1650
+    "recordId": "2026-07-22-company-hq",
+    "width": 1448,
+    "height": 1086
   },
   {
-    "src": "assets/events/2026-07-22-woori-04.jpg",
+    "src": "assets/events/2026-07-22-company-hq-04.jpg",
     "category": "기업행사",
-    "title": "우리은행 본사 행사 · 04",
-    "alt": "우리은행 본사 행사 현장 사진 4 — 2026-07-24 촬영",
+    "title": "기업 본사 행사 · 04",
+    "alt": "기업 본사 행사 현장 사진 4 — 2026-07-24 촬영 (기업명·로고 비공개 처리)",
     "date": "2026-07-24",
-    "recordId": "2026-07-22-woori",
-    "width": 2200,
-    "height": 1650
+    "recordId": "2026-07-22-company-hq",
+    "width": 1448,
+    "height": 1086
   },
   {
-    "src": "assets/events/2026-07-22-woori-01.jpg",
+    "src": "assets/events/2026-07-22-company-hq-01.jpg",
     "category": "기업행사",
-    "title": "우리은행 본사 행사 · 01",
-    "alt": "우리은행 본사 행사 현장 사진 1 — 2026-07-22 촬영",
+    "title": "기업 본사 행사 · 01",
+    "alt": "기업 본사 행사 현장 사진 1 — 2026-07-22 촬영 (기업명·로고 비공개 처리)",
     "date": "2026-07-22",
-    "recordId": "2026-07-22-woori",
-    "width": 2200,
-    "height": 1650
+    "recordId": "2026-07-22-company-hq",
+    "width": 1448,
+    "height": 1086
   },
   {
     "src": "assets/stage.jpg",
@@ -440,24 +440,24 @@
     "height": 1650
   },
   {
-    "src": "assets/events/2026-05-14-cj-townhall-01.jpg",
+    "src": "assets/events/2026-05-14-company-townhall-01.jpg",
     "category": "기업행사",
-    "title": "대한통운 타운홀 행사 · 01",
-    "alt": "대한통운 타운홀 행사 현장 사진 1 — 2026-05-14 촬영",
+    "title": "기업 타운홀 행사 · 01",
+    "alt": "기업 타운홀 행사 현장 사진 1 — 2026-05-14 촬영 (기업명·로고 비공개 처리)",
     "date": "2026-05-14",
-    "recordId": "2026-05-14-cj-townhall",
-    "width": 2200,
-    "height": 1650
+    "recordId": "2026-05-14-company-townhall",
+    "width": 1448,
+    "height": 1086
   },
   {
-    "src": "assets/events/2026-05-14-cj-townhall-02.jpg",
+    "src": "assets/events/2026-05-14-company-townhall-02.jpg",
     "category": "기업행사",
-    "title": "대한통운 타운홀 행사 · 02",
-    "alt": "대한통운 타운홀 행사 현장 사진 2 — 2026-05-14 촬영",
+    "title": "기업 타운홀 행사 · 02",
+    "alt": "기업 타운홀 행사 현장 사진 2 — 2026-05-14 촬영 (기업명·로고 비공개 처리)",
     "date": "2026-05-14",
-    "recordId": "2026-05-14-cj-townhall",
-    "width": 2200,
-    "height": 1650
+    "recordId": "2026-05-14-company-townhall",
+    "width": 1448,
+    "height": 1086
   },
   {
     "src": "assets/field-2.jpg",
