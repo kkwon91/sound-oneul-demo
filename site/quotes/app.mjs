@@ -97,10 +97,10 @@ function download(bytes,name,mime){
 const xlsxMime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 const filename=(label)=>`${q.date}_${q.project}_${label}.xlsx`.replace(/[\\/:*?"<>|\x00-\x1f]/g,'_');
 async function exportFile(kind){
-  validate(q);const source=kind==='quote'?profile.quote:profile.gear;
+  if(kind==='io')validateIO(q);else validate(q);const source=kind==='quote'?profile.quote:profile.gear;
   if(kind!=='io'&&!source){$('#setup').open=true;throw new Error(`${kind==='quote'?'견적서':'장비리스트'} 원본 엑셀을 먼저 등록해 주세요.`);}
   if(!profile.supplier.name.trim()||!profile.supplier.representative.trim()||!profile.supplier.number.trim())throw new Error('공급자 상호·대표자·사업자등록번호를 확인해 주세요.');
-  await save();const out=kind==='io'?await exportIO(q,profile.supplier):kind==='quote'?await exportQuote(source.bytes,q,profile.supplier):await exportEquipment(source.bytes,q,profile.supplier,validatePacking(q));
+  if(meaningful())await save();const out=kind==='io'?await exportIO(q,profile.supplier):kind==='quote'?await exportQuote(source.bytes,q,profile.supplier):await exportEquipment(source.bytes,q,profile.supplier,validatePacking(q));
   download(out,filename(kind==='quote'?'견적서':kind==='io'?'인풋아웃풋리스트':'출고장비리스트'),xlsxMime);toast('엑셀 파일을 만들었습니다.');
 }
 function preview(){
