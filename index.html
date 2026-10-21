@@ -356,6 +356,7 @@ ol.how{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;fon
     <button class="tab" role="tab" data-act="tab" data-tab="home" id="tab-home">한눈에</button>
     <button class="tab" role="tab" data-act="tab" data-tab="jobs" id="tab-jobs">현장</button>
     <button class="tab" role="tab" data-act="tab" data-tab="money" id="tab-money">계산서·수금</button>
+    <a class="tab" id="quote-link" href="https://kkwon91.github.io/sound-oneul-demo/site/quotes/">견적서 ↗</a>
     <button class="tab" role="tab" data-act="tab" data-tab="crew" id="tab-crew">인력</button>
     <button class="tab" role="tab" data-act="tab" data-tab="settings" id="tab-settings">설정</button>
   </nav>
@@ -607,6 +608,7 @@ async function act(fn, okMsg, undo){
 const $ = s => document.querySelector(s);
 const view = $("#view");
 function render(){
+  if(DEMO_SITE) $("#quote-link").href="site/quotes/";
   $("#today").textContent = "오늘 "+fmtD(TODAY);
   const sy=$("#sync");
   sy.className = "sync"+(S.mode==="db"?" on":"");
@@ -1739,7 +1741,19 @@ let rzT=null;
 if("ResizeObserver" in window){ new ResizeObserver(()=>{ clearTimeout(rzT); rzT=setTimeout(drawMonthly,80); }).observe(view); }
 
 render();
-store.init();
+store.init().then(()=>{
+  // The quote editor hands over a draft only. The user reviews and saves it here.
+  // Billing rates are never converted into actual personnel costs.
+  if(!DEMO_SITE||!S.canWrite)return;
+  try{
+    const raw=localStorage.getItem("oneul.quote.handoff.v1");if(!raw)return;
+    const h=JSON.parse(raw);if(h.version!==1||Date.now()-h.createdAt>3600000||!h.job)return;
+    const j=h.job;if(typeof j.title!=="string"||!Number.isSafeInteger(j.supply)||j.supply<0||!Array.isArray(j.gear))return;
+    openJob();for(const key of ["title","client","contact","venue","start","end","supply","vatOn","gear","memo"])if(key in j)E.data[key]=clone(j[key]);
+    E.data.status="quote";renderSheet();localStorage.removeItem("oneul.quote.handoff.v1");
+    toast("견적 내용을 가져왔어요. ‘견적·문의’ 상태로 확인한 뒤 저장하세요.");
+  }catch(_){toast("견적 내용을 가져오지 못했어요. 견적서 화면에서 다시 시도해 주세요.");}
+});
 })();
 </script>
 
