@@ -1,0 +1,68 @@
+[
+  {
+    "src": "assets/stage.jpg",
+    "category": "공연·쇼케이스",
+    "title": "무대와 음향 콘솔",
+    "alt": "보라색 조명이 켜진 공연 무대와 객석 뒤의 음향 콘솔"
+  },
+  {
+    "src": "assets/field-11.jpg",
+    "category": "공연·쇼케이스",
+    "title": "쇼케이스 리허설",
+    "alt": "쇼케이스 리허설 중인 출연진과 무대 앞 모니터 스피커"
+  },
+  {
+    "src": "assets/field-10.jpg",
+    "category": "공연·쇼케이스",
+    "title": "객석 뒤에서 바라본 무대",
+    "alt": "푸른 조명의 공연 무대와 객석 뒤 촬영 장비"
+  },
+  {
+    "src": "assets/convention.jpg",
+    "category": "기업 컨벤션",
+    "title": "컨벤션 홀 전경",
+    "alt": "Dior Convention 2026 화면이 켜진 대형 컨벤션 무대와 객석"
+  },
+  {
+    "src": "assets/field-7.jpg",
+    "category": "기업 컨벤션",
+    "title": "행사 중의 무대와 객석",
+    "alt": "컨벤션 무대에서 진행되는 라이브 공연과 테이블 객석"
+  },
+  {
+    "src": "assets/field-8.jpg",
+    "category": "기업 컨벤션",
+    "title": "라이브 공연의 순간",
+    "alt": "대형 LED 배경 앞에서 공연 중인 출연진과 객석"
+  },
+  {
+    "src": "assets/field-9.jpg",
+    "category": "기업 컨벤션",
+    "title": "무대 정면의 장비 배치",
+    "alt": "컨벤션 무대 전면에 놓인 모니터 스피커와 대형 LED 화면"
+  },
+  {
+    "src": "assets/field-12.jpg",
+    "category": "기업 컨벤션",
+    "title": "홀 전체에 전해지는 공연",
+    "alt": "컨벤션 홀 뒤에서 바라본 공연 무대와 양쪽 중계 화면"
+  },
+  {
+    "src": "assets/field-2.jpg",
+    "category": "박람회·토크",
+    "title": "박람회 메인 스테이지",
+    "alt": "2026 대한민국 상생 채용박람회 메인 무대와 관객"
+  },
+  {
+    "src": "assets/field-5.jpg",
+    "category": "박람회·토크",
+    "title": "현장 입구와 프로그램",
+    "alt": "2026 대한민국 상생 채용박람회의 메인 스테이지 입구와 프로그램 안내"
+  },
+  {
+    "src": "assets/field-6.jpg",
+    "category": "박람회·토크",
+    "title": "대화를 전하는 무대",
+    "alt": "채용박람회 무대 위 세 명의 발표자와 모니터 스피커"
+  }
+]
