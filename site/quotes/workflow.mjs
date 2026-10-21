@@ -22,7 +22,7 @@ export function normalizeQuote(q){
   q.packingExtras=Array.isArray(q.packingExtras)?q.packingExtras:[];
   q.packingChecks=q.packingChecks&&typeof q.packingChecks==='object'?q.packingChecks:{};
   q.packingExcluded=Array.isArray(q.packingExcluded)?q.packingExcluded:[];
-  q.io={inputs:[],outputs:[],notes:'',...q.io};
+  q.io={inputs:[],outputs:[],notes:'',checklist:'',contactName:'',contactPhone:'',contactEmail:'',...q.io};
   return q;
 }
 export function itemFromCatalog(item,quantity=1){return {lineId:uid(),catalogId:item.id,name:item.name,model:item.model,maker:item.maker||'',quantity,unit:item.unit||'EA',rate:item.rate,note:item.note||'',accessories:clone(item.accessories||[])};}
@@ -71,3 +71,17 @@ export function validateIO(q){
   }
   return q.io;
 }
+
+// One presentation model keeps the browser proof and Excel sheet consistent.
+export function ioLayout(q){
+  const io=q.io||{},checklist=String(io.checklist||'').replace(/\r/g,'').split('\n');
+  const inputCount=Math.max(32,io.inputs?.length||0),outputCount=Math.max(24,io.outputs?.length||0);
+  const count=Math.max(inputCount,outputCount+1+Math.max(7,checklist.length));
+  const detail=(r,fields)=>fields.filter(([key])=>r[key]).map(([key,label])=>label?`${label}: ${r[key]}`:r[key]).join('\n');
+  const inputs=Array.from({length:count},(_,i)=>{const r=io.inputs?.[i];return r?{channel:r.channel,name:r.source||'',std:r.stand||'',note:detail(r,[['device','장비'],['patch','패치'],['phantom','48V'],['position','위치'],['note','']])}:{channel:i<inputCount?String(i+1):'',name:'',std:'',note:''};});
+  const outputs=Array.from({length:outputCount},(_,i)=>{const r=io.outputs?.[i];return r?{channel:r.channel,name:r.bus||r.destination||'',note:detail(r,[...(r.bus?[['destination','']]:[]),['device','장비'],['patch','패치'],['connector','연결'],['position','위치'],['note','']]),span:1}:{channel:String(i+1),name:'',note:'',span:1};});
+  // Only identical adjacent populated labels/notes merge; individual channel numbers remain.
+  for(let i=0;i<outputs.length;){let end=i+1;while(outputs[i].name&&end<outputs.length&&outputs[end].name===outputs[i].name&&outputs[end].note===outputs[i].note)end++;outputs[i].span=end-i;for(let j=i+1;j<end;j++)outputs[j].span=0;i=end;}
+  return {inputs,outputs,inputCount,outputCount,count,checklist};
+}
+export function ioContact(q,s){return [q.io?.contactName||q.issuer||s.representative,q.io?.contactPhone||s.phone,q.io?.contactEmail||s.email].filter(Boolean).join(' / ');}

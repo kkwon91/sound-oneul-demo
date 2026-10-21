@@ -1,6 +1,6 @@
 import {validate} from './core.mjs';
-import {validateIO,IO_FIELDS} from './workflow.mjs?v=2';
-import {ioTemplate} from './io-template.mjs';
+import {validateIO,ioLayout,ioContact} from './workflow.mjs?v=3';
+import {ioTemplate} from './io-template.mjs?v=3';
 
 // Edit the uploaded OOXML package in place so logos, signatures and cell styles survive.
 // No private workbook is shipped with the site. Only the browser holds its bytes.
@@ -185,32 +185,46 @@ export async function exportEquipment(bytes,q,s,packing=null){
 }
 
 export async function exportIO(q,s){
-  validateIO(q);
+  validateIO(q);const layout=ioLayout(q);
   const zip=await JSZip.loadAsync(Uint8Array.from(atob(ioTemplate),c=>c.charCodeAt(0)));
   const wb=xml(await zip.file('xl/workbook.xml').async('string')),styles=xml(await zip.file('xl/styles.xml').async('string'));
   const rels=xml(await zip.file('xl/_rels/workbook.xml.rels').async('string'));
+  const sheet=all(wb,'sheet')[0],target=all(rels,'Relationship').find(r=>r.getAttribute('Id')===sheet.getAttribute('r:id')).getAttribute('Target');
+  const p=target.replace(/^\//,'').replace(/^(?!xl\/)/,'xl/'),doc=xml(await zip.file(p).async('string')),b={doc,styles};
+  const data=one(doc,'sheetData'),merges=one(doc,'mergeCells');
+  const samples=Object.fromEntries([6,9,33,34,40].map(r=>[r,all(data,'row').find(n=>+n.getAttribute('r')===r).cloneNode(true)]));
+  const style=(sample,col)=>all(samples[sample],'c').find(c=>c.getAttribute('r').replace(/\d+$/,'')===col)?.getAttribute('s')||'0';
+  for(const row of all(data,'row'))if(+row.getAttribute('r')>=9)row.remove();
+  for(const merge of all(merges,'mergeCell'))if(+merge.getAttribute('ref').match(/\d+/)[0]>=9)merge.remove();
+  const merge=ref=>merges.append(element(doc,'mergeCell',{ref}));
+  const appendRow=(r,sample=9)=>{const row=samples[sample].cloneNode(true);row.setAttribute('r',r);for(const c of all(row,'c')){c.setAttribute('r',c.getAttribute('r').replace(/\d+$/,String(r)));while(c.firstChild)c.removeChild(c.firstChild);c.removeAttribute('t');}data.append(row);return row;};
+  const title=q.project?q.project+' I/O Sheet':'I/O Sheet';write(doc,'C1',title);wrap(b,['C1']);
+  const titleHeight=Math.max(23,Math.ceil(textLines(title,50)*24/3));for(const r of [1,2,3])rowHeight(doc,r,titleHeight);
+  const meta='일정: '+(q.start||'')+(q.end&&q.end!==q.start?' ~ '+q.end:'')+'    장소: '+(q.venue||'');
+  write(doc,'A4',meta);write(doc,'A5',ioContact(q,s));
+  fitTextRow(b,4,{A:{value:meta,width:140}},22);fitTextRow(b,5,{A:{value:ioContact(q,s),width:140}},24);
+  for(let i=0;i<layout.count;i++){
+    const r=9+i,input=layout.inputs[i],output=layout.outputs[i];appendRow(r);
+    const values={A:input.channel,B:input.name,C:input.std,D:input.note};
+    if(output){values.E=output.channel;if(output.span){values.F=output.name;values.G=output.note;if(output.span>1){merge(`F${r}:F${r+output.span-1}`);merge(`G${r}:G${r+output.span-1}`);}}}
+    else {const header=i===layout.outputCount;values.E=header?'Check List':layout.checklist[i-layout.outputCount-1]||'';merge(`E${r}:G${r}`);for(const col of 'EFG')cell(doc,col+r).setAttribute('s',style(header?33:34,col));}
+    if(i===layout.count-1)for(const col of 'ABCDEFG')cell(doc,col+r).setAttribute('s',style(40,col));
+    for(const [col,value] of Object.entries(values))write(doc,col+r,value);
+    const widths={A:7,B:28,C:9,D:34,E:output?7:70,F:28,G:34};
+    fitTextRow(b,r,Object.fromEntries(Object.entries(values).map(([col,value])=>[col,{value,width:widths[col]}])),23);
+  }
+  let last=8+layout.count;
+  if(q.io.notes){appendRow(++last,6);merge(`A${last}:G${last}`);write(doc,'A'+last,'현장 기술 메모');appendRow(++last);merge(`A${last}:G${last}`);write(doc,'A'+last,q.io.notes);fitTextRow(b,last,{A:{value:q.io.notes,width:140}},28);}
+  merges.setAttribute('count',all(merges,'mergeCell').length);
+  const dim=one(doc,'dimension');if(dim)dim.setAttribute('ref',`A1:G${last}`);
+  let setup=one(doc,'pageSetup');if(!setup){setup=element(doc,'pageSetup');doc.documentElement.insertBefore(setup,one(doc,'headerFooter')||one(doc,'drawing')||null);}
+  Object.entries({paperSize:9,orientation:'portrait',fitToWidth:1,fitToHeight:layout.count<=32&&(b.extraHeight||0)<100?'1':'0'}).forEach(([k,v])=>setup.setAttribute(k,String(v)));
+  let margins=one(doc,'pageMargins');if(!margins){margins=element(doc,'pageMargins');doc.documentElement.insertBefore(margins,setup);}Object.entries({left:.2,right:.2,top:.25,bottom:.25,header:.1,footer:.1}).forEach(([k,v])=>margins.setAttribute(k,String(v)));
+  let prop=one(doc,'sheetPr');if(!prop){prop=element(doc,'sheetPr');doc.documentElement.insertBefore(prop,doc.documentElement.firstChild);}let fit=one(prop,'pageSetUpPr');if(!fit){fit=element(doc,'pageSetUpPr');prop.append(fit);}fit.setAttribute('fitToPage','1');
   let names=one(wb,'definedNames');if(!names){names=element(wb,'definedNames');wb.documentElement.insertBefore(names,one(wb,'calcPr')||null);}
   for(const n of all(names,'definedName'))if(/^_xlnm.Print_/.test(n.getAttribute('name')||''))n.remove();
-  const sheets=all(wb,'sheet');
-  for(const [index,kind] of ['inputs','outputs'].entries()){
-    const sheet=sheets[index],rid=sheet.getAttribute('r:id');const target=all(rels,'Relationship').find(r=>r.getAttribute('Id')===rid).getAttribute('Target');
-    const p=target.replace(/^\//,'').replace(/^(?!xl\/)/,'xl/');const doc=xml(await zip.file(p).async('string'));
-    const base=kind==='inputs'?32:16,rows=q.io[kind],count=Math.max(base,rows.length),extra=count-base,last=12+count;
-    insertRows(doc,10+base,extra,9+base);const b={doc,styles};
-    for(const [ref,value] of Object.entries({A5:'행사명: '+(q.project||''),E5:'일정: '+(q.start||'')+' ~ '+(q.end||''),A6:'장소: '+(q.venue||''),E6:'작성자: '+(q.issuer||s.representative),A7:'견적번호: '+(q.number||''),E7:s.name+' · '+s.phone})){write(doc,ref,value);}
-    for(const r of [5,6,7])fitTextRow(b,r,{A:{value:text(cell(doc,`A${r}`),'t'),width:70},E:{value:text(cell(doc,`E${r}`),'t'),width:70}},28);
-    for(let i=0;i<count;i++){
-      const r=10+i,row=rows[i];const values={};for(const [col,key] of IO_FIELDS[kind].entries()){const value=row?.[key]||(!row&&key==='channel'?String(i+1):'');write(doc,`${'ABCDEFGH'[col]}${r}`,value);values['ABCDEFGH'[col]]={value,width:[8,30,30,26,14,24,26,40][col]};}fitTextRow(b,r,values,24);
-    }
-    write(doc,`A${11+count}`,q.io.notes||'');wrap(b,[`A${11+count}`]);const noteHeight=Math.max(24,Math.ceil(textLines(q.io.notes,170)*13/2));rowHeight(doc,11+count,noteHeight);rowHeight(doc,12+count,noteHeight);
-    for(const dv of all(doc,'dataValidation'))if(kind==='inputs')dv.setAttribute('sqref',`E10:E${9+count}`);
-    const dim=one(doc,'dimension');if(dim)dim.setAttribute('ref',`A1:H${last}`);
-    let setup=one(doc,'pageSetup');if(!setup){setup=element(doc,'pageSetup');doc.documentElement.insertBefore(setup,one(doc,'headerFooter')||one(doc,'drawing')||null);}Object.entries({paperSize:9,orientation:'landscape',fitToWidth:1,fitToHeight:0}).forEach(([k,v])=>setup.setAttribute(k,String(v)));
-    let prop=one(doc,'sheetPr');if(!prop){prop=element(doc,'sheetPr');doc.documentElement.insertBefore(prop,doc.documentElement.firstChild);}let fit=one(prop,'pageSetUpPr');if(!fit){fit=element(doc,'pageSetUpPr');prop.append(fit);}fit.setAttribute('fitToPage','1');
-    const sheetName=sheet.getAttribute('name').replaceAll("'","''");
-    for(const [name,ref] of [['_xlnm.Print_Area',`$A$1:$H$${last}`],['_xlnm.Print_Titles','$1:$9']]){const n=element(wb,'definedName',{name,localSheetId:index});n.textContent=`'${sheetName}'!${ref}`;names.append(n);}
-    zip.file(p,serialize(doc));
-  }
-  zip.file('xl/styles.xml',serialize(styles));zip.file('xl/workbook.xml',serialize(wb));
+  const sheetName=sheet.getAttribute('name').replaceAll("'","''");for(const [name,ref] of [['_xlnm.Print_Area',`$A$1:$G$${last}`],['_xlnm.Print_Titles','$1:$8']]){const n=element(wb,'definedName',{name,localSheetId:0});n.textContent=`'${sheetName}'!${ref}`;names.append(n);}
+  for(const v of all(doc,'sheetView'))v.setAttribute('showGridLines','0');
+  zip.file(p,serialize(doc));zip.file('xl/styles.xml',serialize(styles));zip.file('xl/workbook.xml',serialize(wb));
   return zip.generateAsync({type:'uint8array',compression:'DEFLATE'});
 }

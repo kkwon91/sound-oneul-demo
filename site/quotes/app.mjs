@@ -1,6 +1,6 @@
 import {VERSION,DEFAULT_SUPPLIER,today,uid,clone,freshQuote,calculate,validate,toJob,mergeCatalog,money} from './core.mjs?v=2';
-import {readWorkbook,exportQuote,exportEquipment,exportIO} from './xlsx.mjs?v=2';
-import {normalizeQuote,searchCatalog,itemFromCatalog,reconcileCatalog,packingRows,validatePacking,validateRules,IO_FIELDS,blankIO,validateIO} from './workflow.mjs?v=2';
+import {readWorkbook,exportQuote,exportEquipment,exportIO} from './xlsx.mjs?v=3';
+import {normalizeQuote,searchCatalog,itemFromCatalog,reconcileCatalog,packingRows,validatePacking,validateRules,IO_FIELDS,blankIO,validateIO,ioLayout,ioContact} from './workflow.mjs?v=3';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let db,profile={supplier:{...DEFAULT_SUPPLIER},catalog:[],fees:[]},quotes=[],q,saveTimer,toastTimer,lastURL,busy=false;
@@ -11,7 +11,7 @@ const openDB=()=>new Promise((resolve,reject)=>{const r=indexedDB.open('sound-on
 const read=(store,key)=>new Promise((resolve,reject)=>{const r=db.transaction(store).objectStore(store)[key===undefined?'getAll':'get'](key);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});
 const put=(store,data,key)=>new Promise((resolve,reject)=>{const tx=db.transaction(store,'readwrite');if(key===undefined)tx.objectStore(store).put(data);else tx.objectStore(store).put(data,key);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);});
 const saveProfile=()=>put('state',profile,'profile');
-function meaningful(){return q&&!!(q.project||q.client||q.items.length||q.fees.some(f=>+f.quantity>0)||q.packingExtras?.length||q.io?.inputs.length||q.io?.outputs.length||q.io?.notes);}
+function meaningful(){return q&&!!(q.project||q.client||q.items.length||q.fees.some(f=>+f.quantity>0)||q.packingExtras?.length||q.io?.inputs.length||q.io?.outputs.length||q.io?.notes||q.io?.checklist||q.io?.contactName||q.io?.contactPhone||q.io?.contactEmail);}
 async function save(){
   clearTimeout(saveTimer);if(!db||!q)return;
   const snapshot=clone(q);snapshot.updatedAt=new Date().toISOString();
@@ -142,7 +142,7 @@ document.addEventListener('input',e=>{
   if(n.id==='equipment-search')renderQuick();
   if(n.dataset.extra!==undefined){const extra=q.packingExtras.find(x=>x.id===n.dataset.extra);extra[n.dataset.key]=n.value;changed();updatePackingStatus();}
   if(n.dataset.io){q.io[n.dataset.io][+n.dataset.row][n.dataset.key]=n.value;changed();}
-  if(n.id==='io-notes'){q.io.notes=n.value;changed();}
+  if(n.dataset.ioMeta){q.io[n.dataset.ioMeta]=n.value;changed();}
   if(n.dataset.rule!==undefined)modelDraft.accessories[+n.dataset.rule][n.dataset.key]=n.value;
 });
 document.addEventListener('change',e=>{
@@ -234,7 +234,7 @@ function renderDeviceOptions(){$('#io-devices').innerHTML=[...new Set(q.items.ma
 const ioHeadings={inputs:['CH','소스','마이크 / DI','패치','48V','스탠드','위치','비고'],outputs:['OUT','버스','용도 / 목적지','출력 장비','패치','커넥터','위치','비고']};
 function renderIO(){
   for(const kind of ['inputs','outputs'])$('#io-'+kind).innerHTML=q.io[kind].map((row,i)=>`<tr>${IO_FIELDS[kind].map((key,col)=>`<td>${key==='phantom'?`<select aria-label="인풋 ${i+1} ${ioHeadings[kind][col]}" data-io="${kind}" data-row="${i}" data-key="${key}">${['','미정','OFF','ON'].map(v=>`<option value="${v}" ${row[key]===v?'selected':''}>${v||'선택'}</option>`).join('')}</select>`:`<input aria-label="${kind==='inputs'?'인풋':'아웃풋'} ${i+1} ${ioHeadings[kind][col]}" data-io="${kind}" data-row="${i}" data-key="${key}" maxlength="100" ${key==='device'?'list="io-devices"':''} value="${esc(row[key]||'')}">`}</td>`).join('')}<td><button type="button" data-remove-io="${kind}" data-row="${i}" aria-label="${kind==='inputs'?'인풋':'아웃풋'} ${i+1} 삭제">×</button></td></tr>`).join('');
-  $('#io-notes').value=q.io.notes;renderDeviceOptions();
+  $$('[data-io-meta]').forEach(n=>n.value=q.io[n.dataset.ioMeta]||'');renderDeviceOptions();
 }
 function addIORows(kind,count){
   if(q.io[kind].length+count>128)throw new Error('각각 128채널까지 추가할 수 있어요.');
@@ -242,7 +242,14 @@ function addIORows(kind,count){
   for(let i=0;i<count;i++)q.io[kind].push(blankIO(kind,number++));changed();renderIO();
 }
 function previewIO(){
-  validateIO(q);$('#preview').innerHTML=`<article class="preview-paper"><div class="preview-title"><div><h3>인풋·아웃풋 리스트</h3><small>${esc(q.project||'행사명 미입력')}</small></div><img src="../assets/oneul-logo-original.png" alt="사운드 오늘"></div><p>${esc(q.start)} ~ ${esc(q.end)} · ${esc(q.venue)}</p>${['inputs','outputs'].map(kind=>`<h4>${kind==='inputs'?'INPUT':'OUTPUT'}</h4><div class="table-wrap"><table><thead><tr>${ioHeadings[kind].map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${q.io[kind].map(r=>`<tr>${IO_FIELDS[kind].map(k=>`<td>${esc(r[k])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`).join('')}<pre>${esc(q.io.notes)}</pre><p>${esc(profile.supplier.name)} · ${esc(profile.supplier.phone)}</p></article>`;$('#preview-dialog').showModal();
+  validateIO(q);const layout=ioLayout(q),td=(v,attrs='')=>`<td ${attrs}>${esc(v)}</td>`;
+  const rows=layout.inputs.map((r,i)=>{let right='';const output=layout.outputs[i];
+    if(output)right=td(output.channel,'class="io-divider"')+(output.span?td(output.name,`rowspan="${output.span}"`)+td(output.note,`rowspan="${output.span}"`):'');
+    else if(i===layout.outputCount)right='<th colspan="3" class="io-divider io-check-head">Check List</th>';
+    else right=td(layout.checklist[i-layout.outputCount-1]||'','colspan="3" class="io-divider io-check-line"');
+    return `<tr>${td(r.channel)}${td(r.name)}${td(r.std)}${td(r.note)}${right}</tr>`;
+  }).join('');
+  $('#preview').innerHTML=`<div class="io-proof-scroll"><article class="io-proof"><header class="io-proof-header"><img src="../assets/oneul-logo-original.png" alt="사운드 오늘"><h3>${esc(q.project?q.project+' I/O Sheet':'I/O Sheet')}</h3></header><p class="io-proof-meta">일정: ${esc(q.start)}${q.end&&q.end!==q.start?' ~ '+esc(q.end):''}　 장소: ${esc(q.venue)}</p><p class="io-proof-contact">${esc(ioContact(q,profile.supplier))}</p><table class="io-proof-table"><colgroup>${[6,19,7,23,6,18,21].map(w=>`<col class="io-col-${w}">`).join('')}</colgroup><thead><tr><th colspan="7" class="io-sheet-title">I/O Sheet</th></tr><tr><th colspan="4">Input</th><th colspan="3" class="io-divider">Monitor Output</th></tr><tr>${['No.','Name','STD','Use/Note','No.','Name','Use/Note'].map((v,i)=>`<th ${i===4?'class="io-divider"':''}>${v}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>${q.io.notes?`<p class="io-proof-notes"><b>현장 기술 메모</b><br>${esc(q.io.notes)}</p>`:''}</article></div>`;$('#preview-dialog').showModal();
 }
 async function exportBundle(){
   validate(q);validateIO(q);const packing=validatePacking(q);
