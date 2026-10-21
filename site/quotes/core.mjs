@@ -1,4 +1,4 @@
-export const VERSION = 1;
+export const VERSION = 2;
 export const money = n => Number(n).toLocaleString('ko-KR');
 export const today = () => new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);
 export const uid = () => crypto.randomUUID();

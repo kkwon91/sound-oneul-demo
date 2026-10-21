@@ -1,4 +1,6 @@
 import {validate} from './core.mjs';
+import {validateIO,IO_FIELDS} from './workflow.mjs?v=2';
+import {ioTemplate} from './io-template.mjs';
 
 // Edit the uploaded OOXML package in place so logos, signatures and cell styles survive.
 // No private workbook is shipped with the site. Only the browser holds its bytes.
@@ -158,22 +160,57 @@ export async function exportQuote(bytes,q,s){
   write(d,`A${R(48)}`,`${s.address}  |  ${s.email}`);
   return finish(b,R(48));
 }
-export async function exportEquipment(bytes,q,s){
-  validate(q);if(!q.items.length)throw new Error('장비리스트에 넣을 장비를 추가해 주세요.');
+export async function exportEquipment(bytes,q,s,packing=null){
+  validate(q);const items=packing||q.items;if(!items.length)throw new Error('장비리스트에 넣을 장비를 추가해 주세요.');
   const b=await readWorkbook(bytes,'equipment');await prepare(b);const d=b.doc;
-  const extra=Math.max(0,q.items.length-25);insertRows(d,35,extra,34);header(b,q,s);
+  const extra=Math.max(0,items.length-25);insertRows(d,35,extra,34);header(b,q,s);
   const merges=one(d,'mergeCells');
   // The original wireless category spans four rows, overlapping individual merges.
   // Rebuild only the item-area merges so arbitrary selections don't inherit it.
-  for(const m of all(merges,'mergeCell')){const rows=m.getAttribute('ref').match(/\d+/g).map(Number);if(rows[0]>=10&&rows[0]<35+extra)m.remove();}
-  for(let i=0;i<Math.max(25,q.items.length);i++){
-    const r=10+i,it=q.items[i];for(const col of 'ABCDEFGH')write(d,`${col}${r}`,'');
-    for(const ref of [`A${r}:B${r}`,`C${r}:D${r}`,`G${r}:H${r}`])merges.append(element(d,'mergeCell',{ref}));
-    if(it){write(d,`A${r}`,it.name);write(d,`C${r}`,it.model);write(d,`E${r}`,+it.quantity);write(d,`F${r}`,it.unit);const note=[it.maker,it.note].filter(Boolean).join(' / ');write(d,`G${r}`,note);fitTextRow(b,r,{A:{value:it.name,width:38},C:{value:it.model,width:28},G:{value:note,width:28}});}
+  for(const m of all(merges,'mergeCell')){const rows=m.getAttribute('ref').match(/\d+/g).map(Number);if(rows[0]>=10&&rows[0]<35+extra||packing&&m.getAttribute('ref')==='G9:H9')m.remove();}
+  if(packing){write(d,'C1','출고 장비 리스트');write(d,'G9','출고');write(d,'H9','반납');cell(d,'H9').setAttribute('s',cell(d,'G9').getAttribute('s'));write(d,'C9','모델 / 연결 장비·비고');}
+  for(let i=0;i<Math.max(25,items.length);i++){
+    const r=10+i,it=items[i];for(const col of 'ABCDEFGH')write(d,`${col}${r}`,'');
+    for(const ref of [`A${r}:B${r}`,`C${r}:D${r}`,...(packing?[]:[`G${r}:H${r}`])])merges.append(element(d,'mergeCell',{ref}));
+    if(it){const name=it.name+(packing?'\n'+it.kind:'');const model=packing?[it.model,it.note,it.source&&it.source!=='견적 포함'?'연결: '+it.source:''].filter(Boolean).join('\n'):it.model;
+      write(d,`A${r}`,name);write(d,`C${r}`,model);write(d,`E${r}`,+it.quantity);write(d,`F${r}`,it.unit);const note=[it.maker,it.note].filter(Boolean).join(' / ');
+      write(d,`G${r}`,packing?(it.out?'완료':'□'):note);if(packing)write(d,`H${r}`,it.returned?'완료':'□');
+      fitTextRow(b,r,{A:{value:name,width:38},C:{value:model,width:28},G:{value:packing?'□':note,width:packing?12:28}},packing?28:14);}
   }
   merges.setAttribute('count',all(merges,'mergeCell').length);
-  write(d,`E${35+extra}`,q.items.reduce((s,i)=>s+Number(i.quantity),0),`SUM(E10:E${34+extra})`);
-  write(d,`A${37+extra}`,'REMARK: 장비는 현장 상황에 따라 동급 모델로 대체될 수 있습니다.');
+  write(d,`E${35+extra}`,items.reduce((s,i)=>s+Number(i.quantity),0),`SUM(E10:E${34+extra})`);
+  write(d,`A${37+extra}`,packing?'REMARK: 견적 장비 + 추가 준비물. 출고·반납 시 실물을 확인해 주세요.':'REMARK: 장비는 현장 상황에 따라 동급 모델로 대체될 수 있습니다.');
   write(d,`A${38+extra}`,`${s.address}  |  ${s.email}`);
   return finish(b,38+extra);
+}
+
+export async function exportIO(q,s){
+  validateIO(q);
+  const zip=await JSZip.loadAsync(Uint8Array.from(atob(ioTemplate),c=>c.charCodeAt(0)));
+  const wb=xml(await zip.file('xl/workbook.xml').async('string')),styles=xml(await zip.file('xl/styles.xml').async('string'));
+  const rels=xml(await zip.file('xl/_rels/workbook.xml.rels').async('string'));
+  let names=one(wb,'definedNames');if(!names){names=element(wb,'definedNames');wb.documentElement.insertBefore(names,one(wb,'calcPr')||null);}
+  for(const n of all(names,'definedName'))if(/^_xlnm.Print_/.test(n.getAttribute('name')||''))n.remove();
+  const sheets=all(wb,'sheet');
+  for(const [index,kind] of ['inputs','outputs'].entries()){
+    const sheet=sheets[index],rid=sheet.getAttribute('r:id');const target=all(rels,'Relationship').find(r=>r.getAttribute('Id')===rid).getAttribute('Target');
+    const p=target.replace(/^\//,'').replace(/^(?!xl\/)/,'xl/');const doc=xml(await zip.file(p).async('string'));
+    const base=kind==='inputs'?32:16,rows=q.io[kind],count=Math.max(base,rows.length),extra=count-base,last=12+count;
+    insertRows(doc,10+base,extra,9+base);const b={doc,styles};
+    for(const [ref,value] of Object.entries({A5:'행사명: '+(q.project||''),E5:'일정: '+(q.start||'')+' ~ '+(q.end||''),A6:'장소: '+(q.venue||''),E6:'작성자: '+(q.issuer||s.representative),A7:'견적번호: '+(q.number||''),E7:s.name+' · '+s.phone})){write(doc,ref,value);}
+    for(const r of [5,6,7])fitTextRow(b,r,{A:{value:text(cell(doc,`A${r}`),'t'),width:70},E:{value:text(cell(doc,`E${r}`),'t'),width:70}},28);
+    for(let i=0;i<count;i++){
+      const r=10+i,row=rows[i];const values={};for(const [col,key] of IO_FIELDS[kind].entries()){const value=row?.[key]||(!row&&key==='channel'?String(i+1):'');write(doc,`${'ABCDEFGH'[col]}${r}`,value);values['ABCDEFGH'[col]]={value,width:[8,30,30,26,14,24,26,40][col]};}fitTextRow(b,r,values,24);
+    }
+    write(doc,`A${11+count}`,q.io.notes||'');wrap(b,[`A${11+count}`]);const noteHeight=Math.max(24,Math.ceil(textLines(q.io.notes,170)*13/2));rowHeight(doc,11+count,noteHeight);rowHeight(doc,12+count,noteHeight);
+    for(const dv of all(doc,'dataValidation'))if(kind==='inputs')dv.setAttribute('sqref',`E10:E${9+count}`);
+    const dim=one(doc,'dimension');if(dim)dim.setAttribute('ref',`A1:H${last}`);
+    let setup=one(doc,'pageSetup');if(!setup){setup=element(doc,'pageSetup');doc.documentElement.insertBefore(setup,one(doc,'headerFooter')||one(doc,'drawing')||null);}Object.entries({paperSize:9,orientation:'landscape',fitToWidth:1,fitToHeight:0}).forEach(([k,v])=>setup.setAttribute(k,String(v)));
+    let prop=one(doc,'sheetPr');if(!prop){prop=element(doc,'sheetPr');doc.documentElement.insertBefore(prop,doc.documentElement.firstChild);}let fit=one(prop,'pageSetUpPr');if(!fit){fit=element(doc,'pageSetUpPr');prop.append(fit);}fit.setAttribute('fitToPage','1');
+    const sheetName=sheet.getAttribute('name').replaceAll("'","''");
+    for(const [name,ref] of [['_xlnm.Print_Area',`$A$1:$H$${last}`],['_xlnm.Print_Titles','$1:$9']]){const n=element(wb,'definedName',{name,localSheetId:index});n.textContent=`'${sheetName}'!${ref}`;names.append(n);}
+    zip.file(p,serialize(doc));
+  }
+  zip.file('xl/styles.xml',serialize(styles));zip.file('xl/workbook.xml',serialize(wb));
+  return zip.generateAsync({type:'uint8array',compression:'DEFLATE'});
 }
