@@ -19,3 +19,10 @@ dialog{padding:18px;border:1px solid var(--line);background:#101512;color:#f1f4e
 @media(max-width:960px){.hero{gap:26px}.hero h1{font-size:46px}.hero .hero-visual img{height:400px}.contact-section{gap:32px}.contact-brand{padding:24px}}
 @media(max-width:720px){header{gap:18px}.brand-mark{width:132px}header nav{font-size:12px;gap:13px}.hero{grid-template-columns:1fr;min-height:0}.hero h1{font-size:clamp(39px,8vw,54px)}.hero .hero-visual img{height:auto;aspect-ratio:4/3}.hero-note{margin:24px 0 0}.hero-visual figcaption{font-size:10px}.contact-section{grid-template-columns:1fr;gap:35px}.contact-brand{max-width:360px;width:100%}.contact-phone{font-size:32px}.photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}.photo-title{font-size:13px}.photo-card .tag{font-size:10px}.filters{gap:8px}.filters button{padding:8px 12px;font-size:12px}.featured-grid{gap:32px}.page-intro h1{font-size:44px}.viewer-bottom p{font-size:13px}}
 @media(max-width:380px){header nav{width:100%;justify-content:space-between}.hero .button{padding:10px 14px}.contact-phone{font-size:28px}}
+
+/* Copyable inquiry guide */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.contact-section{grid-template-columns:1.15fr 1fr;gap:48px;align-items:start}
+.contact-section>div,.inquiry-card{min-width:0}.inquiry-help{font-size:13px}.contact-card-link{display:inline-block;font-size:12px;color:var(--muted);margin-top:14px;text-decoration:underline;text-underline-offset:4px}
+.inquiry-card{padding:30px;border:1px solid var(--line);background:#151d17}.inquiry-card h3{margin:14px 0 12px;font-size:24px}.inquiry-card p{font-size:13px}.inquiry-card textarea{margin:22px 0 16px;min-height:244px;line-height:1.9;font-size:14px;cursor:text}.inquiry-card button{width:100%}#inquiry-status{color:var(--green);margin-bottom:0}#inquiry-status:empty{display:none}
+@media(max-width:720px){.contact-section{grid-template-columns:1fr;gap:30px}.inquiry-card{padding:22px}.inquiry-card textarea{font-size:13px}}
